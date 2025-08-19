@@ -1,0 +1,129 @@
+{% extends "inicio/encabezado.html" %}
+
+{% block titulo %}Detalle del Recorrido{% endblock %}
+
+{% block contenido %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- CARD DETALLE -->
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                
+                <!-- Fotografía -->
+                {% if recorrido.fotografia %}
+                    <img src="{{ recorrido.fotografia.url }}" alt="{{ recorrido.ciudad }}" class="img-fluid">
+                {% endif %}
+                
+                <div class="card-body p-4">
+                    <!-- 1. Información general -->
+                    <h2 class="fw-bold text-success mb-3">{{ recorrido.nombre }}</h2>
+                    
+                    <ul class="list-unstyled text-muted mb-4">
+                        <li><strong>Tipo:</strong> {{ recorrido.tipo|capfirst }}</li>
+                        <li><strong>📅 Fecha:</strong> {{ recorrido.fecha }}</li>
+                        <li><strong>⏰ Hora de inicio:</strong> {{ recorrido.hora_inicio }}</li>
+                        <li><strong>📍 Estado / Ciudad:</strong> {{ recorrido.estado }} - {{ recorrido.ciudad }}</li>
+                    </ul>
+                    
+                    <!-- 2. Detalles del recorrido -->
+                    <h5 class="fw-bold mb-3">Detalles del Recorrido</h5>
+                    <ul class="list-unstyled text-muted mb-4">
+                        <li><strong>🚴 Kilómetros:</strong> {{ recorrido.kilometros }} km</li>
+                        <li><strong>🕒 Tiempo estimado:</strong> {{ recorrido.tiempo_estimado }}</li>
+                        <li><strong>📍 Punto de inicio:</strong> {{ recorrido.punto_inicio }}</li>
+                        <li><strong>📍 Punto final:</strong> {{ recorrido.punto_final }}</li>
+                        {% if recorrido.costo %}
+                        <li><strong>💲 Costo:</strong> ${{ recorrido.costo }}</li>
+                        {% endif %}
+                    </ul>
+                    
+                    <!-- Descripción completa -->
+                    <h5 class="fw-bold mb-2">Descripción</h5>
+                    <p>{{ recorrido.descripcion }}</p>
+                    
+                    <!-- MAPA -->
+                    <h5 class="fw-bold mt-4 mb-3">Mapa del Recorrido</h5>
+                    <div id="map" style="height: 500px; margin-bottom: 30px;"></div>
+                    
+                    <!-- Botones -->
+                    <div class="d-flex gap-2 mt-3 mb-4">
+                        <a href="{% url 'inscribirme' recorrido.id %}" class="btn btn-success btn-lg flex-fill">
+                             Preinscribirme
+                        </a>
+                        <a href="{% url 'proximos' %}" class="btn btn-outline-secondary btn-lg flex-fill">
+                             Volver
+                        </a>
+                    </div>
+
+                   <!-- Participantes -->
+<h3 class="fw-bold mt-4">Participantes inscritos:</h3>
+{% if inscripciones %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha de inscripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inscripcion in inscripciones %}
+            <tr>
+                <td>{{ inscripcion.nombre }}</td>
+                <td>{{ inscripcion.email }}</td>
+                <td>{{ inscripcion.telefono }}</td>
+                <td>{{ inscripcion.fecha_inscripcion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="text-muted">No hay inscritos en este recorrido.</p>
+{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Leaflet Routing Machine -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+<script>
+    var puntos = JSON.parse('{{ puntos_json|safe }}');
+
+    if (puntos.length > 0) {
+        var map = L.map('map').setView(puntos[0], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Si solo hay un punto → solo marcador
+        if (puntos.length === 1) {
+            L.marker(puntos[0]).addTo(map);
+            map.setView(puntos[0], 15);
+        }
+
+        // Si hay al menos dos puntos → mostrar ruta
+        if (puntos.length >= 2) {
+            L.Routing.control({
+                waypoints: puntos.map(function(coord) {
+                    return L.latLng(coord[0], coord[1]);
+                }),
+                draggableWaypoints: false,
+                addWaypoints: false,
+                routeWhileDragging: false,
+                show: false
+            }).addTo(map);
+        }
+    }
+</script>
+
+{% endblock %}

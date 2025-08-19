@@ -1,0 +1,23 @@
+/* NAVBAR transparente que cambia al hacer scroll */
+.navbar {
+  background: transparent;
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+.navbar .nav-link {
+  color: white !important;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.navbar .nav-link:hover {
+  color: #f97316 !important; /* naranja bici */
+}
+.navbar.scrolled {
+  background: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.navbar.scrolled .nav-link {
+  color: #333 !important;
+}
+.navbar.scrolled .nav-link:hover {
+  color: #16a34a !important; /* verde bici */
+}

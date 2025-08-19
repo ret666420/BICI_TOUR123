@@ -1,0 +1,23 @@
+.hero {
+    background-image: url('/static/inicio/images/fondo1.png');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero button {
+    background-color: #f97316;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+.card-recorrido img {
+    height: 180px;
+    object-fit: cover;
+}

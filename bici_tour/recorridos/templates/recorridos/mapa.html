@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapa de Rutas</title>
+  <!-- CSS de Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h2>Selecciona la ruta en bicicleta</h2>
+  <div id="map"></div>
+
+  <!-- JS de Leaflet -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Inicializar mapa centrado en México
+    var map = L.map('map').setView([19.4326, -99.1332], 13);
+
+    // Cargar mapa base (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var startMarker, endMarker;
+
+    // Detectar clics en el mapa
+    map.on('click', function(e) {
+      if (!startMarker) {
+        startMarker = L.marker(e.latlng, {draggable: true}).addTo(map)
+          .bindPopup("Punto de salida").openPopup();
+      } else if (!endMarker) {
+        endMarker = L.marker(e.latlng, {draggable: true}).addTo(map)
+          .bindPopup("Punto de llegada").openPopup();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>{% block titulo %}Mi sitio{% endblock %}</title>
+    {% load static %}
+    <link href="{% static 'inicio/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'inicio/css/misitio.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'principal' %}">Bici Tour</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'principal' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'detalle_recorrido' %}">Próximos Recorridos</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    {% block contenido %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

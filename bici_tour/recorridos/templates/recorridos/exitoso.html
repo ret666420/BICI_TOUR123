@@ -1,0 +1,59 @@
+{% extends "inicio/encabezado.html" %}
+
+{% load static %}
+
+{% block titulo %}Personas Inscritas{% endblock %}
+
+{% block contenido %}
+<section class="py-5">
+  <div class="container">
+    <h2 class="mb-4">Lista de Personas Inscritas</h2>
+
+    {% if personas %}
+      <table id="tabla-inscritos" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Ciudad</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for persona in personas %}
+            <tr>
+              <td>{{ persona.nombre }}</td>
+              <td>{{ persona.ciudad }}</td>
+              <td>{{ persona.estado }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-info">No hay personas inscritas aún.</div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Incluye CSS y JS de DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"/>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#tabla-inscritos').DataTable({
+      "language": {
+        "search": "Buscar:",
+        "lengthMenu": "Mostrar _MENU_ registros",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ inscritos",
+        "paginate": {
+          "next": "Siguiente",
+          "previous": "Anterior"
+        },
+        "zeroRecords": "No se encontraron inscritos"
+      }
+    });
+  });
+</script>
+
+{% endblock %}

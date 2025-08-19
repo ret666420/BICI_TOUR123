@@ -1,0 +1,121 @@
+{% extends "inicio/encabezado.html" %}
+
+{% block titulo %}Nosotros{% endblock %}
+
+{% block contenido %}
+
+<section class="py-5 bg-light text-center">
+    <div class="container">
+        <h1 class="mb-4">Sobre Nosotros</h1>
+        <p class="lead">
+            Somos una empresa dedicada a fomentar el ciclismo y la conexión con la naturaleza, ofreciendo recorridos
+            que combinan seguridad, diversión y aventura para toda la comunidad ciclista.
+        </p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-6">
+                <h2>Nuestra Historia</h2>
+                <p style="text-align: justify; font-size: 1rem;">
+                    BiciTour nació con el objetivo de ofrecer recorridos turísticos en bicicleta por distintas regiones de México, combinando deporte, aventura y contacto con la naturaleza. 
+                    La empresa surgió ante la necesidad de organizar y gestionar de manera eficiente los recorridos, brindando a los usuarios una experiencia más completa y confiable. Actualmente, 
+                    BiciTour busca digitalizar sus procesos mediante una plataforma web que permita administrar recorridos, facilitar el registro de participantes y ofrecer información detallada sobre cada ruta, 
+                    incluyendo mapas interactivos que muestran trayectos y puntos de interés.
+                </p>
+            </div>
+            <div class="col-md-6 text-center">
+                <!-- Imagen con tamaño fijo y centrada -->
+                <img src="/media/fotos/logo2.jpg" 
+                
+                     class="rounded shadow" 
+                     alt="Nuestra historia"
+                     style="width:100%; max-width:400px; height:auto; object-fit:cover;">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2>Misión, Visión y Filosofía</h2>
+        <div class="row mt-4 g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm" style="background-color:#357a38; color:white;">
+                    <div class="card-body">
+                        <h5 class="card-title">Misión</h5>
+                        <p class="card-text" style="text-align: justify;">
+                            Brindar a los ciclistas y turistas experiencias únicas a través de recorridos seguros, bien organizados y enriquecidos con información digital, fomentando el contacto con la naturaleza, la actividad física y la cultura local, mientras se ofrece un sistema confiable y accesible que simplifica la gestión y preinscripción de participantes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm" style="background-color:#357a38; color:white;">
+                    <div class="card-body">
+                        <h5 class="card-title">Visión</h5>
+                        <p class="card-text" style="text-align: justify;">
+                            Ser la plataforma líder en recorridos turísticos en bicicleta en México, reconocida por su innovación, calidad en la organización y por ofrecer experiencias digitales completas que conecten a los usuarios con la aventura, la naturaleza y la comunidad ciclista, consolidando BiciTour como un referente en turismo y deporte sostenible.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm" style="background-color:#357a38; color:white;">
+                    <div class="card-body">
+                        <h5 class="card-title">Filosofía</h5>
+                        <p class="card-text" style="text-align: justify;">
+                           Creemos en la unión de la comunidad ciclista, el respeto por la naturaleza y la pasión por el ciclismo como motor de transformación positiva. Buscamos ofrecer experiencias seguras, organizadas y enriquecedoras, fomentando un estilo de vida saludable y promoviendo la aventura y el descubrimiento en cada recorrido.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Nuestro Equipo</h2>
+        <div class="row g-4 justify-content-center">
+
+            <div class="col-md-3 text-center">
+                <img src="/media/fotos/daniel.png" alt="Daniel" 
+                     class="rounded-circle mb-3" 
+                     style="width:150px; height:150px; object-fit:cover;">
+                <h5>Daniel</h5>
+                <p class="text-muted">Fundador</p>
+            </div>
+
+            <div class="col-md-3 text-center">
+                <img src="/media/fotos/alan.jpeg" alt="Alan" 
+                     class="rounded-circle mb-3" 
+                     style="width:150px; height:150px; object-fit:cover;">
+                <h5>Alan</h5>
+                <p class="text-muted">Fundador</p>
+            </div>
+
+            <div class="col-md-3 text-center">
+                <img src="/media/fotos/reynaldo.jpeg" alt="Reynaldo" 
+                     class="rounded-circle mb-3" 
+                     style="width:150px; height:150px; object-fit:cover;">
+                <h5>Reynaldo</h5>
+                <p class="text-muted">Fundador</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}

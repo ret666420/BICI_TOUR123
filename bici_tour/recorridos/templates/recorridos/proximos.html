@@ -1,0 +1,61 @@
+{% extends "inicio/encabezado.html" %}
+{% load static %}
+
+{% block titulo %}Recorridos Próximos{% endblock %}
+
+{% block contenido %}
+
+<section class="py-5 bg-white">
+    <div class="container">
+        <!-- ENCABEZADO -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-success">
+                🌟 Recorridos Próximos
+            </h2>
+            <p class="text-muted">
+                Prepárate para nuestras próximas aventuras en bicicleta. ¡Reserva tu lugar y acompáñanos!
+            </p>
+        </div>
+
+        <!-- TARJETAS -->
+        <div class="row g-4">
+            {% for recorrido in recorridos %}
+                {% if not recorrido.recorrido_realizado %}
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 h-100 rounded-3 hover-scale overflow-hidden">
+                             {% if recorrido.fotografia %}
+                            <img src="{{ recorrido.fotografia.url }}" class="card-img-top rounded-top" alt="Foto de {{ recorrido.ciudad }}">
+                        {% else %}
+                            <img src="{% static 'inicio/images/default.jpg' %}" class="card-img-top rounded-top" alt="Sin imagen">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ recorrido.nombre }}</h5>
+                            <p class="text-muted mb-2">
+                                <strong>📅 Fecha:</strong> {{ recorrido.fecha }}<br>
+                                <strong>📍 Ciudad:</strong> {{ recorrido.ciudad }}, {{ recorrido.estado }}
+                            </p>
+                            <p class="card-text text-truncate" style="max-height: 3em; overflow: hidden;">
+                                {{ recorrido.descripcion }}
+                            </p>
+                                <a href="{% url 'detalle_recorrido' recorrido.id %}" class="btn btn-warning btn-sm w-100 mt-2">
+                                 Ver más
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <!-- MENSAJE SI NO HAY RECORRIDOS -->
+                <div class="col-12 text-center">
+                    <div class="p-5 bg-light rounded-3 shadow-sm">
+                        <h5 class="text-muted">😕 No hay recorridos próximos por el momento.</h5>
+                        <p class="small">¡Muy pronto tendremos nuevas aventuras para ti!</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
