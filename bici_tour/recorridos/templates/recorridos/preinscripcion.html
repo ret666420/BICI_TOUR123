@@ -1,0 +1,97 @@
+{% extends "inicio/encabezado.html" %}
+{% load static %}
+
+{% block titulo %}Preinscripción{% endblock %}
+
+{% block contenido %}
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Formulario de Preinscripción</h2>
+
+    {% if recorrido %}
+      <p class="lead text-center">
+        <strong>Recorrido:</strong> {{ recorrido.ciudad }} - {{ recorrido.estado }} |
+        {{ recorrido.fecha|date:"d/m/Y" }}
+      </p>
+    {% endif %}
+
+    <!-- Mensajes de confirmación o error -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} text-center">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" class="mx-auto" style="max-width: 600px;" novalidate>
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" 
+               class="form-control" required
+               value="{{ form.nombre.value|default_if_none:'' }}">
+        {% if form.nombre.errors %}
+          <div class="text-danger">{{ form.nombre.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico:</label>
+        <input type="email" name="correo" id="correo" 
+               class="form-control" required
+               value="{{ form.correo.value|default_if_none:'' }}">
+        {% if form.correo.errors %}
+          <div class="text-danger">{{ form.correo.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono:</label>
+        <input type="tel" name="telefono" id="telefono" 
+               class="form-control" pattern="[0-9]{10}" 
+               placeholder="10 dígitos" required
+               value="{{ form.telefono.value|default_if_none:'' }}">
+        {% if form.telefono.errors %}
+          <div class="text-danger">{{ form.telefono.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        <label for="ciudad" class="form-label">Ciudad:</label>
+        <input type="text" name="ciudad" id="ciudad" 
+               class="form-control" required
+               value="{{ form.ciudad.value|default_if_none:'' }}">
+        {% if form.ciudad.errors %}
+          <div class="text-danger">{{ form.ciudad.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        <label for="estado" class="form-label">Estado:</label>
+        <input type="text" name="estado" id="estado" 
+               class="form-control" required
+               value="{{ form.estado.value|default_if_none:'' }}">
+        {% if form.estado.errors %}
+          <div class="text-danger">{{ form.estado.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      {% if not recorrido %}
+        <div class="mb-3">
+          <label for="{{ form.recorrido.id_for_label }}" class="form-label">Seleccionar Recorrido:</label>
+          {{ form.recorrido }}
+          {% if form.recorrido.errors %}
+            <div class="text-danger">{{ form.recorrido.errors.0 }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary w-100">Enviar</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

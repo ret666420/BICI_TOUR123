@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block titulo %}BiciTour{% endblock %}</title>
+    {% load static %}
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'inicio/css/estilos.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white" href="{% url 'principal' %}">
+                <img src="{% static 'inicio/images/logo2.jpg' %}" alt="Logo BiciTour" height="40" class="me-2">
+                BiciTour
+            </a>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a href="{% url 'principal' %}" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="{% url 'proximos' %}" class="nav-link">Recorridos próximos</a></li>
+                    <li class="nav-item"><a href="{% url 'realizados' %}" class="nav-link">Recorridos realizados</a></li>
+                    <li class="nav-item"><a href="{% url 'nosotros' %}" class="nav-link">Quiénes somos</a></li>
+                    <li class="nav-item"><a href="{% url 'MapaRutas' %}" class="nav-link">Mapa de rutas</a></li>                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- INICIO DEL CONTENIDO PRINCIPAL -->
+    <main style="margin-top: 80px;">
+        {% block contenido %}
+        {% endblock %}
+    </main>
+    <!-- FIN DEL CONTENIDO PRINCIPAL -->
+
+    <!-- FOOTER -->
+    <footer class="bg-success text-white py-4 mt-5">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                Contáctanos <br>
+                Email: araSolution@gmail.com
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SCRIPT para efecto scroll -->
+    <script>
+        document.addEventListener("scroll", function(){
+            const navbar = document.querySelector(".navbar");
+            navbar.classList.toggle("scrolled", window.scrollY > 50);
+        });
+    </script>
+</body>
+</html>

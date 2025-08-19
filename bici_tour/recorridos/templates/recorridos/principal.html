@@ -1,0 +1,76 @@
+{% extends "inicio/encabezado.html" %}
+{% load static %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+
+<!-- HERO -->
+<section class="hero d-flex align-items-center text-center text-white position-relative" 
+         style="background: url('{% static "inicio/images/logo.jpg" %}') center/cover no-repeat; min-height: 85vh;">
+    <div class="overlay" style="background: linear-gradient(rgba(0,80,0,0.4), rgba(0,0,0,0.6)); position:absolute; top:0; left:0; width:100%; height:100%;"></div>
+    <div class="container position-relative">
+        <h1 class="display-2 fw-bold mb-4">Vive la experiencia <span style="color:#f97316;">BiciTour</span></h1>
+        <p class="lead mb-5">Recorridos en bicicleta para conectar con la naturaleza y la aventura.</p>
+        <a href="#recorridos" class="btn btn-success btn-lg px-4 py-2 me-2 shadow">🚴 Ver Recorridos</a>
+    </div>
+</section>
+
+
+
+<!-- RECORRIDOS PRÓXIMOS -->
+<section id="recorridos" class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Recorridos Próximos</h2>
+        <div class="row g-4">
+            {% for recorrido in proximos %}
+                <div class="col-md-4">
+                    <div class="card shadow-sm border-0 h-100 rounded-3 hover-scale">
+                        <!-- Imagen -->
+                        {% if recorrido.fotografia %}
+                            <img src="{{ recorrido.fotografia.url }}" class="card-img-top rounded-top" alt="Foto de {{ recorrido.ciudad }}">
+                        {% else %}
+                            <img src="{% static 'inicio/images/default.jpg' %}" class="card-img-top rounded-top" alt="Sin imagen">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ recorrido.nombre }}</h5>
+                            <p class="text-muted mb-2">
+                                <strong>📅 Fecha:</strong> {{ recorrido.fecha }}<br>
+                                <strong>📍 Ciudad:</strong> {{ recorrido.ciudad }}, {{ recorrido.estado }}
+                            </p>
+                            <p class="card-text text-truncate" style="max-height: 3em; overflow: hidden;">
+                                {{ recorrido.descripcion }}
+                            </p>
+
+  <a href="{% url 'detalle_recorrido' recorrido.id %}" class="btn btn-warning btn-sm w-100 mt-2">
+                                 Ver más
+                                </a>                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">No hay recorridos próximos por el momento.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<!-- QUIÉNES SOMOS -->
+<section class="py-5 text-center bg-light">
+    <div class="container">
+        <h2 class="fw-bold mb-3">¿Nuestra historia?</h2>
+        <p class="lead text-muted mb-4">
+            BiciTour nació con el objetivo de ofrecer recorridos turísticos en bicicleta por distintas regiones de México, combinando deporte, aventura y contacto con la naturaleza. 
+                    La empresa surgió ante la necesidad de organizar y gestionar de manera eficiente los recorridos,
+        </p>
+        <a href="{% url 'nosotros' %}" class="btn btn-outline-success px-4">Saber más</a>
+    </div>
+</section>
+
+
+
+{% endblock %}
